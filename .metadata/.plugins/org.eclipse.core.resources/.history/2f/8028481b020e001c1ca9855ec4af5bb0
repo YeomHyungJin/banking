@@ -8,46 +8,40 @@ public class Main {
 	
 	public static void main(String[] args) {
 		boolean run = true;
-		try {
-			while(run)
+		while(run)
+		{
+			System.out.println("===================================================");
+			System.out.println("1. 계좌 생성 | 2. 계좌 목록 | 3. 예금 | 4. 출금 | 5. 종료");
+			System.out.println("===================================================");
+			System.out.print("선택>");
+			
+			int selNum = scan.nextInt();
+			if(selNum == 1)
 			{
-				System.out.println("===================================================");
-				System.out.println("1. 계좌 생성 | 2. 계좌 목록 | 3. 예금 | 4. 출금 | 5. 종료");
-				System.out.println("===================================================");
-				System.out.print("선택>");
-				
-				int selNum = scan.nextInt();
-				if(selNum == 1)
-				{
-					createAccount();
-				}
-				else if(selNum == 2)
-				{
-					accountList();
-				}
-				else if(selNum == 3)
-				{
-					deposit();
-				}
-				else if(selNum == 4)
-				{
-					withdraw();
-				}
-				else if(selNum == 5)
-				{
-					run = false;
-				}
-				else
-				{
-					System.out.println("지원하지 않는 기능입니다.");
-				}
+				createAccount();
 			}
-		}catch(Exception e){
-			System.out.println("잘못된 입력입니다.");
-		}finally {
-			System.out.println("프로그램 종료");
-			scan.close();
+			else if(selNum == 2)
+			{
+				accountList();
+			}
+			else if(selNum == 3)
+			{
+				deposit();
+			}
+			else if(selNum == 4)
+			{
+				withdraw();
+			}
+			else if(selNum == 5)
+			{
+				run = false;
+			}
+			else
+			{
+				System.out.println("지원하지 않는 기능입니다.");
+			}
 		}
+		System.out.println("프로그램 종료");
 	}
 	// 계좌 생성
 	private static void createAccount() {
@@ -99,28 +93,21 @@ public class Main {
 		System.out.println("3. 예금");
 		System.out.println("==========");
 		
-		try 
+		System.out.println("계좌 번호 : ");
+		String ano = scan.next();
+		
+		System.out.println("입금액 : ");
+		int money = scan.nextInt();
+		
+		Account account = findAccount(ano);
+		
+		if(account == null)
 		{
-			System.out.println("계좌 번호 : ");
-			String ano = scan.next();
-			
-			System.out.println("입금액 : ");
-			int money = scan.nextInt();
-			
-			Account account = findAccount(ano);
-			
-			if(account == null)
-			{
-				System.out.println("계좌가 없습니다.");
-				return;	//반복문에서 빠져나옴(종료)
-			}
-			account.setBalance(account.getBalance() + money);
-			System.out.println("결과 : 입금을 성공하였습니다.");
+			System.out.println("계좌가 없습니다.");
+			return;	//반복문에서 빠져나옴(종료)
 		}
-		catch(NullPointerException e)
-		{
-			e.printStackTrace();
-		}
+		account.setBalance(account.getBalance() + money);
+		System.out.println("결과 : 입금을 성공하였습니다.");
 	}
 	// 출금
 	private static void withdraw() {
